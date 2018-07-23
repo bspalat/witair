@@ -1,5 +1,3 @@
-wit_url <- 'https://api.wit.ai'
-
 get_apps <- function(auth_token, limit = 500, offset = 0) {
   check_internet()
   if (missing(auth_token)) auth_token <- witai_auth()
@@ -19,8 +17,6 @@ get_apps <- function(auth_token, limit = 500, offset = 0) {
     apps = httr::content(res, simplifyDataFrame = TRUE),
     raw = res))
 }
-
-
 
 
 create_app <- function(auth_token, name, language, private, description, set_env_id = FALSE) {
@@ -97,15 +93,26 @@ update_app <- function(auth_token, app_id, version = NA, name = NA, language = N
 
 }
 
-#
-# name <- "firstApp"
-# language <- "french"
-# private <- "true"
-# description <- "My first app for doing stuff"
-#
-# app_spec %>% toJSON(auto_unbox = TRUE)
-#
-# library(jsonlite)
-# library(magrittr)
-library(httr)
-?stop
+
+delete_app <- function(auth_token, app_id, version = NA) {
+  check_internet()
+
+  if (missing(auth_token)) auth_token <- witai_auth()
+
+  if (is.na(version)) version <- gsub('[[:punct:]]', '', Sys.Date())
+
+  res <- httr::DELETE(
+    url     = 'https://api.wit.ai/',
+    path    = paste0('apps/', app_id),
+    httr::add_headers(Authorization = paste0('Bearer ', auth_token)),
+    query = list(
+      v = version
+    ))
+
+  resp <- list(
+    delete_success = httr::content(res)$success,
+    raw = res
+  )
+
+  return(resp)
+}
