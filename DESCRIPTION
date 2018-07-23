@@ -1,11 +1,18 @@
 Package: witair
 Type: Package
-Title: What the Package Does (Title Case)
+Title: R Interface to the wit.ai NLP Service
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Authors@R: person("Borna", "Špalat", role = "cre",
+                  email = "bspalat@gmail.com")
+Author: Borna Špalat [cre]
+Maintainer: Borna Špalat <bspalat@gmail.com>
+Description: R package for interacting with the wit.ai service.
+    wit.ai is a platform for developing and using natural language processing tools,
+    oriented at practical usage for chatbots, home automation, IoT and similar purposes.
+    The package is wrapper for the wit.ai API and enables programatic usage of the wit.ai
+    service for R users.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
+Imports: httr,
+    jsonlite
